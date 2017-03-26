@@ -25,9 +25,14 @@ import java.util.Optional;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springsource.restbucks.AbstractIntegrationTest;
-import org.springsource.restbucks.order.Order;
-import org.springsource.restbucks.order.Order.Status;
-import org.springsource.restbucks.order.OrderRepository;
+import org.springsource.restbucks.domain.CreditCard;
+import org.springsource.restbucks.domain.CreditCardPayment;
+import org.springsource.restbucks.domain.Order;
+import org.springsource.restbucks.domain.Order.Status;
+import org.springsource.restbucks.repository.OrderRepository;
+import org.springsource.restbucks.repository.CreditCardRepository;
+import org.springsource.restbucks.service.PaymentService;
+import org.springsource.restbucks.service.PaymentServiceImpl;
 
 /**
  * Integration tests for {@link PaymentServiceImpl}.
@@ -36,9 +41,11 @@ import org.springsource.restbucks.order.OrderRepository;
  */
 public class PaymentServiceIntegrationTest extends AbstractIntegrationTest {
 
-	@Autowired PaymentService paymentService;
+	@Autowired
+	PaymentService paymentService;
 	@Autowired OrderRepository orders;
-	@Autowired CreditCardRepository creditCards;
+	@Autowired
+	CreditCardRepository creditCards;
 
 	@Test
 	public void marksOrderAsPaid() {

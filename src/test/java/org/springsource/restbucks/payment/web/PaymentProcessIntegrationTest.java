@@ -37,7 +37,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springsource.restbucks.AbstractWebIntegrationTest;
 import org.springsource.restbucks.Restbucks;
-import org.springsource.restbucks.order.Order;
+import org.springsource.restbucks.domain.Order;
 
 import com.jayway.jsonpath.JsonPath;
 

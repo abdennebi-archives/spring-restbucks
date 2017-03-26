@@ -13,30 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springsource.restbucks.payment;
+package org.springsource.restbucks.web;
 
-import org.junit.Test;
-import org.springsource.restbucks.domain.CreditCardNumber;
+import org.springframework.data.domain.Sort.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Unit tests for {@link CreditCardNumber}.
+ * Exception being thrown in case an {@link Order} has already been paid and a payment is reattempted.
  * 
  * @author Oliver Gierke
  */
-public class CreditCardNumberUnitTest {
+@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+public class OrderAlreadyPaidException extends RuntimeException {
 
-	@Test(expected = IllegalArgumentException.class)
-	public void rejectsInvalidLength() {
-		new CreditCardNumber("1234");
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void rejectsLetters() {
-		new CreditCardNumber("123412341234123A");
-	}
-
-	@Test
-	public void createsValidCreditCardNumber() {
-		new CreditCardNumber("1234123412341234");
-	}
+	private static final long serialVersionUID = 1L;
 }

@@ -25,6 +25,9 @@ import java.util.Optional;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springsource.restbucks.AbstractIntegrationTest;
+import org.springsource.restbucks.domain.CreditCard;
+import org.springsource.restbucks.domain.CreditCardNumber;
+import org.springsource.restbucks.repository.CreditCardRepository;
 
 /**
  * Integration tests for {@link CreditCardRepository}.

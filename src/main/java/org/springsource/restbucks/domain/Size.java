@@ -13,30 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springsource.restbucks.payment;
-
-import org.junit.Test;
-import org.springsource.restbucks.domain.CreditCardNumber;
+package org.springsource.restbucks.domain;
 
 /**
- * Unit tests for {@link CreditCardNumber}.
- * 
  * @author Oliver Gierke
  */
-public class CreditCardNumberUnitTest {
+public enum Size {
 
-	@Test(expected = IllegalArgumentException.class)
-	public void rejectsInvalidLength() {
-		new CreditCardNumber("1234");
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void rejectsLetters() {
-		new CreditCardNumber("123412341234123A");
-	}
-
-	@Test
-	public void createsValidCreditCardNumber() {
-		new CreditCardNumber("1234123412341234");
-	}
+	SMALL, LARGE;
 }

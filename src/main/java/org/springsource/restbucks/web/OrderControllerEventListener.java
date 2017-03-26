@@ -13,30 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springsource.restbucks.order;
+package org.springsource.restbucks.web;
 
-import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.data.rest.core.event.AbstractRepositoryEventListener;
+import org.springframework.stereotype.Component;
 import org.springsource.restbucks.domain.Order;
-import org.springsource.restbucks.domain.Order.Status;
 
 /**
- * Utility methods for testing.
+ * Event listener to reject {@code DELETE} requests to Spring Data REST.
  * 
  * @author Oliver Gierke
  */
-public class TestUtils {
+@Component
+class OrderControllerEventListener extends AbstractRepositoryEventListener<Order> {
 
-	public static Order createExistingOrder() {
+	/* 
+	 * (non-Javadoc)
+	 * @see org.springframework.data.rest.repository.context.AbstractRepositoryEventListener#onBeforeDelete(java.lang.Object)
+	 */
+	@Override
+	protected void onBeforeDelete(Order order) {
 
-		Order order = new Order();
-		ReflectionTestUtils.setField(order, "id", 1L);
-		return order;
-	}
-
-	public static Order createExistingOrderWithStatus(Status status) {
-
-		Order order = createExistingOrder();
-		ReflectionTestUtils.setField(order, "status", status);
-		return order;
+		if (order.isPaid()) {
+			throw new OrderAlreadyPaidException();
+		}
 	}
 }

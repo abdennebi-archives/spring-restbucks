@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 the original author or authors.
+ * Copyright 2012-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,30 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springsource.restbucks.payment;
+package org.springsource.restbucks.repository;
 
-import org.junit.Test;
+import java.util.Optional;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springsource.restbucks.domain.CreditCard;
 import org.springsource.restbucks.domain.CreditCardNumber;
 
 /**
- * Unit tests for {@link CreditCardNumber}.
+ * Repository to access {@link CreditCard} instances.
  * 
  * @author Oliver Gierke
  */
-public class CreditCardNumberUnitTest {
+public interface CreditCardRepository extends CrudRepository<CreditCard, Long> {
 
-	@Test(expected = IllegalArgumentException.class)
-	public void rejectsInvalidLength() {
-		new CreditCardNumber("1234");
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void rejectsLetters() {
-		new CreditCardNumber("123412341234123A");
-	}
-
-	@Test
-	public void createsValidCreditCardNumber() {
-		new CreditCardNumber("1234123412341234");
-	}
+	/**
+	 * Returns the {@link CreditCard} assicaiated with the given {@link CreditCardNumber}.
+	 * 
+	 * @param number must not be {@literal null}.
+	 * @return
+	 */
+	Optional<CreditCard> findByNumber(CreditCardNumber number);
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 the original author or authors.
+ * Copyright 2012-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,30 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springsource.restbucks.order;
+package org.springsource.restbucks.repository;
 
-import org.springframework.test.util.ReflectionTestUtils;
+import java.util.Optional;
+
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springsource.restbucks.domain.Payment;
 import org.springsource.restbucks.domain.Order;
-import org.springsource.restbucks.domain.Order.Status;
 
 /**
- * Utility methods for testing.
+ * Repository interface to manage {@link Payment} instances.
  * 
  * @author Oliver Gierke
  */
-public class TestUtils {
+public interface PaymentRepository extends PagingAndSortingRepository<Payment, Long> {
 
-	public static Order createExistingOrder() {
-
-		Order order = new Order();
-		ReflectionTestUtils.setField(order, "id", 1L);
-		return order;
-	}
-
-	public static Order createExistingOrderWithStatus(Status status) {
-
-		Order order = createExistingOrder();
-		ReflectionTestUtils.setField(order, "status", status);
-		return order;
-	}
+	/**
+	 * Returns the payment registered for the given {@link Order}.
+	 * 
+	 * @param order
+	 * @return
+	 */
+	Optional<Payment> findByOrder(Order order);
 }

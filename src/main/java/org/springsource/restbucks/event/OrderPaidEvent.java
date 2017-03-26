@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 the original author or authors.
+ * Copyright 2012-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,30 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springsource.restbucks.order;
+package org.springsource.restbucks.event;
 
-import org.springframework.test.util.ReflectionTestUtils;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
 import org.springsource.restbucks.domain.Order;
-import org.springsource.restbucks.domain.Order.Status;
 
 /**
- * Utility methods for testing.
+ * Event to be thrown when an {@link Order} has been payed.
  * 
  * @author Oliver Gierke
+ * @author Stéphane Nicoll
  */
-public class TestUtils {
+@Getter
+@EqualsAndHashCode
+@ToString
+public class OrderPaidEvent {
 
-	public static Order createExistingOrder() {
+	private final long orderId;
 
-		Order order = new Order();
-		ReflectionTestUtils.setField(order, "id", 1L);
-		return order;
-	}
-
-	public static Order createExistingOrderWithStatus(Status status) {
-
-		Order order = createExistingOrder();
-		ReflectionTestUtils.setField(order, "status", status);
-		return order;
+	/**
+	 * Creates a new {@link OrderPaidEvent}
+	 * 
+	 * @param orderId the id of the order that just has been payed
+	 */
+	public OrderPaidEvent(long orderId) {
+		this.orderId = orderId;
 	}
 }

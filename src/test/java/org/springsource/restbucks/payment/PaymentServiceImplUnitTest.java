@@ -31,8 +31,16 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.test.util.ReflectionTestUtils;
-import org.springsource.restbucks.order.Order;
-import org.springsource.restbucks.order.OrderRepository;
+import org.springsource.restbucks.domain.CreditCard;
+import org.springsource.restbucks.domain.CreditCardNumber;
+import org.springsource.restbucks.domain.PaymentException;
+import org.springsource.restbucks.event.OrderPaidEvent;
+import org.springsource.restbucks.domain.Order;
+import org.springsource.restbucks.repository.OrderRepository;
+import org.springsource.restbucks.repository.CreditCardRepository;
+import org.springsource.restbucks.repository.PaymentRepository;
+import org.springsource.restbucks.service.PaymentService;
+import org.springsource.restbucks.service.PaymentServiceImpl;
 
 /**
  * Unit tests for {@link PaymentServiceImpl}.
@@ -46,8 +54,10 @@ public class PaymentServiceImplUnitTest {
 
 	PaymentService paymentService;
 
-	@Mock PaymentRepository paymentRepository;
-	@Mock CreditCardRepository creditCardRepository;
+	@Mock
+	PaymentRepository paymentRepository;
+	@Mock
+	CreditCardRepository creditCardRepository;
 	@Mock OrderRepository orderRepository;
 	@Mock ApplicationEventPublisher publisher;
 

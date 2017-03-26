@@ -25,8 +25,8 @@ import java.time.Year;
 import org.junit.Before;
 import org.junit.Test;
 import org.springsource.restbucks.JacksonTestUtils;
-import org.springsource.restbucks.payment.CreditCard;
-import org.springsource.restbucks.payment.CreditCardNumber;
+import org.springsource.restbucks.domain.CreditCard;
+import org.springsource.restbucks.domain.CreditCardNumber;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

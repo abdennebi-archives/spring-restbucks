@@ -13,30 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springsource.restbucks.payment;
+package org.springsource.restbucks.domain;
 
-import org.junit.Test;
-import org.springsource.restbucks.domain.CreditCardNumber;
+import lombok.Getter;
+
+import org.springframework.util.Assert;
 
 /**
- * Unit tests for {@link CreditCardNumber}.
- * 
  * @author Oliver Gierke
  */
-public class CreditCardNumberUnitTest {
+@Getter
+public class PaymentException extends RuntimeException {
 
-	@Test(expected = IllegalArgumentException.class)
-	public void rejectsInvalidLength() {
-		new CreditCardNumber("1234");
-	}
+	private static final long serialVersionUID = -4929826142920520541L;
+	private final Order order;
 
-	@Test(expected = IllegalArgumentException.class)
-	public void rejectsLetters() {
-		new CreditCardNumber("123412341234123A");
-	}
+	public PaymentException(Order order, String message) {
 
-	@Test
-	public void createsValidCreditCardNumber() {
-		new CreditCardNumber("1234123412341234");
+		super(message);
+
+		Assert.notNull(order);
+		this.order = order;
 	}
 }

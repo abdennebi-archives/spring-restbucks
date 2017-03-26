@@ -18,13 +18,16 @@ package org.springsource.restbucks.order;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 import static org.springsource.restbucks.core.Currencies.*;
-import static org.springsource.restbucks.order.Order.Status.*;
+import static org.springsource.restbucks.domain.Order.Status.*;
 
 import org.hamcrest.Matchers;
 import org.javamoney.moneta.Money;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springsource.restbucks.AbstractIntegrationTest;
+import org.springsource.restbucks.domain.LineItem;
+import org.springsource.restbucks.domain.Order;
+import org.springsource.restbucks.repository.OrderRepository;
 
 /**
  * Integration tests for Spring Data based {@link OrderRepository}.

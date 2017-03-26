@@ -16,6 +16,8 @@
 package org.springsource.restbucks.payment;
 
 import org.junit.Test;
+import org.springsource.restbucks.domain.CreditCard;
+import org.springsource.restbucks.domain.CreditCardNumber;
 
 import java.time.LocalDate;
 import java.time.Month;

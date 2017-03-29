@@ -10,6 +10,8 @@ import org.springsource.restbucks.domain.Order;
 import org.springsource.restbucks.domain.Payment;
 import org.springsource.restbucks.domain.Payment.Receipt;
 
+import static org.springsource.restbucks.config.HateoasConfig.CURIE_NAMESPACE;
+
 /**
  * Helper component to create links to the {@link Payment} and {@link Receipt}.
  */
@@ -17,7 +19,7 @@ import org.springsource.restbucks.domain.Payment.Receipt;
 @RequiredArgsConstructor
 public class PaymentLinks {
 
-    public static final String PAYMENT_REL = Restbucks.CURIE_NAMESPACE + ":payment";
+    public static final String PAYMENT_REL = CURIE_NAMESPACE + ":payment";
     public static final String RECEIPT_REL = "receipt";
     static final String PAYMENT = "/payment";
     static final String RECEIPT = "/receipt";

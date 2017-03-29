@@ -38,6 +38,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springsource.restbucks.config.HateoasConfig.CURIE_NAMESPACE;
 
 /**
  * Integration tests modeling the hypermedia-driven interaction flow against the server implementation. Uses the Spring
@@ -47,12 +48,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Slf4j
 public class PaymentProcessIntegrationTest extends AbstractWebIntegrationTest {
 
-    private static final String ORDERS_REL = Restbucks.CURIE_NAMESPACE + ":orders";
-    private static final String ORDER_REL = Restbucks.CURIE_NAMESPACE + ":order";
-    private static final String RECEIPT_REL = Restbucks.CURIE_NAMESPACE + ":receipt";
-    private static final String CANCEL_REL = Restbucks.CURIE_NAMESPACE + ":cancel";
-    private static final String UPDATE_REL = Restbucks.CURIE_NAMESPACE + ":update";
-    private static final String PAYMENT_REL = Restbucks.CURIE_NAMESPACE + ":payment";
+    private static final String ORDERS_REL = CURIE_NAMESPACE + ":orders";
+    private static final String ORDER_REL = CURIE_NAMESPACE + ":order";
+    private static final String RECEIPT_REL = CURIE_NAMESPACE + ":receipt";
+    private static final String CANCEL_REL = CURIE_NAMESPACE + ":cancel";
+    private static final String UPDATE_REL = CURIE_NAMESPACE + ":update";
+    private static final String PAYMENT_REL = CURIE_NAMESPACE + ":payment";
 
     private static final String FIRST_ORDER_EXPRESSION = String.format("$._embedded.%s[0]", ORDERS_REL);
 

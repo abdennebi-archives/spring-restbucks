@@ -15,35 +15,32 @@
  */
 package org.springsource.restbucks.core;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Version;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-
 import org.springframework.hateoas.Identifiable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
 
 /**
  * Base class for entity implementations. Uses a {@link Long} id.
- * 
- * @author Oliver Gierke
  */
-@MappedSuperclass
 @Getter
 @ToString
 @EqualsAndHashCode
+@MappedSuperclass
 public class AbstractEntity implements Identifiable<Long> {
 
-	private final @Id @GeneratedValue(strategy = GenerationType.AUTO) @JsonIgnore Long id;
-	private @Version Long version;
+    @Id
+    @JsonIgnore
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private final Long id;
 
-	protected AbstractEntity() {
-		this.id = null;
-	}
+    @Version
+    private Long version;
+
+    protected AbstractEntity() {
+        this.id = null;
+    }
 }

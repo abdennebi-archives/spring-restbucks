@@ -13,45 +13,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springsource.restbucks.payment;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
-import java.time.Month;
-import java.time.Year;
-import java.util.Optional;
+package org.springsource.restbucks.repository;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springsource.restbucks.AbstractIntegrationTest;
 import org.springsource.restbucks.domain.CreditCard;
 import org.springsource.restbucks.domain.CreditCardNumber;
-import org.springsource.restbucks.repository.CreditCardRepository;
+
+import java.time.Month;
+import java.time.Year;
+import java.util.Optional;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * Integration tests for {@link CreditCardRepository}.
- * 
- * @author Oliver Gierke
  */
 public class CreditCardRepositoryIntegrationTest extends AbstractIntegrationTest {
 
-	@Autowired CreditCardRepository repository;
+    @Autowired
+    private CreditCardRepository repository;
 
-	@Test
-	public void createsCreditCard() {
+    public static CreditCard createCreditCard() {
 
-		CreditCard creditCard = repository.save(createCreditCard());
+        CreditCardNumber number = new CreditCardNumber("4321432143214321");
+        return new CreditCard(number, "Oliver Gierke", Month.DECEMBER, Year.of(2020));
+    }
 
-		Optional<CreditCard> result = repository.findByNumber(creditCard.getNumber());
+    @Test
+    public void createsCreditCard() {
 
-		assertThat(result.isPresent(), is(true));
-		assertThat(result.get(), is(creditCard));
-	}
+        CreditCard creditCard = repository.save(createCreditCard());
 
-	public static CreditCard createCreditCard() {
+        Optional<CreditCard> result = repository.findByNumber(creditCard.getNumber());
 
-		CreditCardNumber number = new CreditCardNumber("4321432143214321");
-		return new CreditCard(number, "Oliver Gierke", Month.DECEMBER, Year.of(2020));
-	}
+        assertThat(result.isPresent(), is(true));
+        assertThat(result.get(), is(creditCard));
+    }
 }

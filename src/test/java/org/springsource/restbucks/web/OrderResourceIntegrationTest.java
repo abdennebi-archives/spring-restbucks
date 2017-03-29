@@ -13,31 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springsource.restbucks.order.web;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+package org.springsource.restbucks.web;
 
 import org.junit.Test;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springsource.restbucks.AbstractWebIntegrationTest;
 
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 /**
  * Integration test for REST resources exposed by Spring Data REST.
- * 
- * @author Oliver Gierke
  */
 public class OrderResourceIntegrationTest extends AbstractWebIntegrationTest {
 
-	@Test
-	public void exposesOrdersResourceViaRootResource() throws Exception {
+    @Test
+    public void exposesOrdersResourceViaRootResource() throws Exception {
 
-		mvc.perform(get("/")).//
-				andDo(MockMvcResultHandlers.print()).//
-				andExpect(status().isOk()). //
-				andExpect(content().contentTypeCompatibleWith(MediaTypes.HAL_JSON)). //
-				andExpect(jsonPath("$._links.restbucks:orders.href", notNullValue()));
-	}
+        mvc.perform(get("/")).//
+                andDo(MockMvcResultHandlers.print()).//
+                andExpect(status().isOk()). //
+                andExpect(content().contentTypeCompatibleWith(MediaTypes.HAL_JSON)). //
+                andExpect(jsonPath("$._links.restbucks:orders.href", notNullValue()));
+    }
 }

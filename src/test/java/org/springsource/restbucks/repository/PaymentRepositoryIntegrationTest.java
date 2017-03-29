@@ -13,14 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springsource.restbucks.payment;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-import static org.springsource.restbucks.order.OrderRepositoryIntegrationTest.*;
-import static org.springsource.restbucks.payment.CreditCardRepositoryIntegrationTest.*;
-
-import java.util.Optional;
+package org.springsource.restbucks.repository;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,31 +21,36 @@ import org.springsource.restbucks.AbstractIntegrationTest;
 import org.springsource.restbucks.domain.CreditCard;
 import org.springsource.restbucks.domain.CreditCardPayment;
 import org.springsource.restbucks.domain.Order;
-import org.springsource.restbucks.repository.OrderRepository;
-import org.springsource.restbucks.repository.CreditCardRepository;
-import org.springsource.restbucks.repository.PaymentRepository;
+
+import java.util.Optional;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+import static org.springsource.restbucks.repository.CreditCardRepositoryIntegrationTest.createCreditCard;
+import static org.springsource.restbucks.repository.OrderRepositoryIntegrationTest.createOrder;
 
 /**
  * Integration tests for {@link PaymentRepository}.
- * 
- * @author Oliver Gierke
  */
 public class PaymentRepositoryIntegrationTest extends AbstractIntegrationTest {
 
-	@Autowired PaymentRepository payments;
-	@Autowired
-	CreditCardRepository creditCards;
-	@Autowired OrderRepository orders;
+    @Autowired
+    private PaymentRepository payments;
+    @Autowired
+    private CreditCardRepository creditCards;
+    @Autowired
+    private OrderRepository orders;
 
-	@Test
-	public void savesCreditCardPayment() {
+    @Test
+    public void savesCreditCardPayment() {
 
-		CreditCard creditCard = creditCards.save(createCreditCard());
-		Order order = orders.save(createOrder());
+        CreditCard creditCard = creditCards.save(createCreditCard());
+        Order order = orders.save(createOrder());
 
-		CreditCardPayment payment = payments.save(new CreditCardPayment(creditCard, order));
+        CreditCardPayment payment = payments.save(new CreditCardPayment(creditCard, order));
 
-		assertThat(payment.getId(), is(notNullValue()));
-		assertThat(payments.findByOrder(order), is(Optional.of(payment)));
-	}
+        assertThat(payment.getId(), is(notNullValue()));
+        assertThat(payments.findByOrder(order), is(Optional.of(payment)));
+    }
 }

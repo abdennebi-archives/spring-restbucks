@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springsource.restbucks.order;
+package org.springsource.restbucks.web;
 
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springsource.restbucks.domain.Order;
@@ -21,22 +21,20 @@ import org.springsource.restbucks.domain.Order.Status;
 
 /**
  * Utility methods for testing.
- * 
- * @author Oliver Gierke
  */
 public class TestUtils {
 
-	public static Order createExistingOrder() {
+    public static Order createExistingOrder() {
 
-		Order order = new Order();
-		ReflectionTestUtils.setField(order, "id", 1L);
-		return order;
-	}
+        Order order = new Order();
+        ReflectionTestUtils.setField(order, "id", 1L);
+        return order;
+    }
 
-	public static Order createExistingOrderWithStatus(Status status) {
+    public static Order createExistingOrderWithStatus(Status status) {
 
-		Order order = createExistingOrder();
-		ReflectionTestUtils.setField(order, "status", status);
-		return order;
-	}
+        Order order = createExistingOrder();
+        ReflectionTestUtils.setField(order, "status", status);
+        return order;
+    }
 }

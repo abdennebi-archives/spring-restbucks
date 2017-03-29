@@ -13,22 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springsource.restbucks;
+package org.springsource.restbucks.config;
+
+import com.fasterxml.jackson.databind.Module;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.databind.Module;
-
 /**
  * Helper to expose custom Jackson modules for unit tests.
- * 
- * @author Oliver Gierke
  */
-public class JacksonTestUtils extends JacksonCustomizations {
+public class JacksonTestUtils extends JacksonConfig {
 
-	public static Set<Module> getModules() {
-		return new HashSet<>(Arrays.asList(new RestbucksModule(), new MoneyModule()));
-	}
+    public static Set<Module> getModules() {
+        return new HashSet<>(Arrays.asList(new RestbucksModule(), new MoneyModule()));
+    }
 }

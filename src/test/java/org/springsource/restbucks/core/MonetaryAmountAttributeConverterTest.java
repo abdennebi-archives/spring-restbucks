@@ -15,73 +15,53 @@
  */
 package org.springsource.restbucks.core;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
 import org.javamoney.moneta.Money;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
+
 /**
  * Unit tests for {@link MonetaryAmountAttributeConverter}
- *
- * @author Oliver Trosien
- * @author Oliver Gierke
  */
 public class MonetaryAmountAttributeConverterTest {
 
-	MonetaryAmountAttributeConverter converter = new MonetaryAmountAttributeConverter();
+    private MonetaryAmountAttributeConverter converter = new MonetaryAmountAttributeConverter();
 
-	/**
-	 * @see #51
-	 */
-	@Test
-	public void handlesNullValues() {
+    @Test
+    public void handlesNullValues() {
 
-		assertThat(converter.convertToDatabaseColumn(null), is(nullValue()));
-		assertThat(converter.convertToEntityAttribute(null), is(nullValue()));
-	}
+        assertThat(converter.convertToDatabaseColumn(null), is(nullValue()));
+        assertThat(converter.convertToEntityAttribute(null), is(nullValue()));
+    }
 
-	/**
-	 * @see #51
-	 */
-	@Test
-	public void handlesSimpleValue() {
+    @Test
+    public void handlesSimpleValue() {
 
-		assertThat(converter.convertToDatabaseColumn(Money.of(1.23, "EUR")), is("EUR 1.23"));
-		assertThat(converter.convertToEntityAttribute("EUR 1.23"), is(Money.of(1.23, "EUR")));
-	}
+        assertThat(converter.convertToDatabaseColumn(Money.of(1.23, "EUR")), is("EUR 1.23"));
+        assertThat(converter.convertToEntityAttribute("EUR 1.23"), is(Money.of(1.23, "EUR")));
+    }
 
-	/**
-	 * @see #51
-	 */
-	@Test
-	public void handlesNegativeValues() {
+    @Test
+    public void handlesNegativeValues() {
 
-		assertThat(converter.convertToDatabaseColumn(Money.of(-1.20, "USD")), is("USD -1.2"));
-		assertThat(converter.convertToEntityAttribute("USD -1.2"), is(Money.of(-1.20, "USD")));
-	}
+        assertThat(converter.convertToDatabaseColumn(Money.of(-1.20, "USD")), is("USD -1.2"));
+        assertThat(converter.convertToEntityAttribute("USD -1.2"), is(Money.of(-1.20, "USD")));
+    }
 
-	/**
-	 * @see #51
-	 */
-	@Test
-	public void doesNotRoundValues() {
-		assertThat(converter.convertToDatabaseColumn(Money.of(1.23456, "EUR")), is("EUR 1.23456"));
-	}
+    @Test
+    public void doesNotRoundValues() {
+        assertThat(converter.convertToDatabaseColumn(Money.of(1.23456, "EUR")), is("EUR 1.23456"));
+    }
 
-	/**
-	 * @see #51
-	 */
-	@Test
-	public void doesNotFormatLargeValues() {
-		assertThat(converter.convertToDatabaseColumn(Money.of(123456, "EUR")), is("EUR 123456"));
-	}
+    @Test
+    public void doesNotFormatLargeValues() {
+        assertThat(converter.convertToDatabaseColumn(Money.of(123456, "EUR")), is("EUR 123456"));
+    }
 
-	/**
-	 * @see #51
-	 */
-	@Test
-	public void deserializesFormattedValues() {
-		assertThat(converter.convertToEntityAttribute("EUR 123,456.78"), is(Money.of(123456.78, "EUR")));
-	}
+    @Test
+    public void deserializesFormattedValues() {
+        assertThat(converter.convertToEntityAttribute("EUR 123,456.78"), is(Money.of(123456.78, "EUR")));
+    }
 }

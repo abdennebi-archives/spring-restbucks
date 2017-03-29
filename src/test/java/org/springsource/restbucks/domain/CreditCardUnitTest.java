@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springsource.restbucks.payment;
+package org.springsource.restbucks.domain;
 
 import org.junit.Test;
-import org.springsource.restbucks.domain.CreditCard;
-import org.springsource.restbucks.domain.CreditCardNumber;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -28,19 +26,17 @@ import static org.junit.Assert.assertThat;
 
 /**
  * Unit tests for {@link CreditCard}.
- * 
- * @author Oliver Gierke
  */
 public class CreditCardUnitTest {
 
-	static final CreditCardNumber NUMBER = new CreditCardNumber("1234123412341234");
+    private static final CreditCardNumber NUMBER = new CreditCardNumber("1234123412341234");
 
-	@Test
-	public void discoversExpiredCreditCard() {
+    @Test
+    public void discoversExpiredCreditCard() {
 
-		CreditCard creditCard = new CreditCard(NUMBER, "Oliver Gierke", Month.DECEMBER, Year.of(2016));
+        CreditCard creditCard = new CreditCard(NUMBER, "Oliver Gierke", Month.DECEMBER, Year.of(2016));
 
-		assertThat(creditCard.isValid(LocalDate.of(2016, 1, 1)), is(true));
-		assertThat(creditCard.isValid(LocalDate.of(2016, 12, 1)), is(false));
-	}
+        assertThat(creditCard.isValid(LocalDate.of(2016, 1, 1)), is(true));
+        assertThat(creditCard.isValid(LocalDate.of(2016, 12, 1)), is(false));
+    }
 }

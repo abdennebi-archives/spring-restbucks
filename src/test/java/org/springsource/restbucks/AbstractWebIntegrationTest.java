@@ -15,11 +15,6 @@
  */
 package org.springsource.restbucks;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-
-import java.util.Locale;
-
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,74 +30,72 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Locale;
+
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
+
 /**
  * Base class to derive concrete web test classes from.
- * 
- * @author Oliver Gierke
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public abstract class AbstractWebIntegrationTest {
 
-	@Autowired WebApplicationContext context;
-	@Autowired LinkDiscoverers links;
+    protected MockMvc mvc;
+    @Autowired
+    private WebApplicationContext context;
+    @Autowired
+    private LinkDiscoverers links;
 
-	protected MockMvc mvc;
+    @Before
+    public void setUp() {
 
-	@Before
-	public void setUp() {
+        mvc = MockMvcBuilders.webAppContextSetup(context).//
+                defaultRequest(MockMvcRequestBuilders.get("/").locale(Locale.US)).//
+                build();
+    }
 
-		mvc = MockMvcBuilders.webAppContextSetup(context).//
-				defaultRequest(MockMvcRequestBuilders.get("/").locale(Locale.US)).//
-				build();
-	}
+    /**
+     * Creates a {@link ResultMatcher} that checks for the presence of a link with the given rel.
+     */
+    protected ResultMatcher linkWithRelIsPresent(final String rel) {
+        return new LinkWithRelMatcher(rel, true);
+    }
 
-	/**
-	 * Creates a {@link ResultMatcher} that checks for the presence of a link with the given rel.
-	 * 
-	 * @param rel
-	 * @return
-	 */
-	protected ResultMatcher linkWithRelIsPresent(final String rel) {
-		return new LinkWithRelMatcher(rel, true);
-	}
+    /**
+     * Creates a {@link ResultMatcher} that checks for the non-presence of a link with the given rel.
+     */
+    protected ResultMatcher linkWithRelIsNotPresent(String rel) {
+        return new LinkWithRelMatcher(rel, false);
+    }
 
-	/**
-	 * Creates a {@link ResultMatcher} that checks for the non-presence of a link with the given rel.
-	 * 
-	 * @param rel
-	 * @return
-	 */
-	protected ResultMatcher linkWithRelIsNotPresent(String rel) {
-		return new LinkWithRelMatcher(rel, false);
-	}
+    protected LinkDiscoverer getDiscovererFor(MockHttpServletResponse response) {
+        return links.getLinkDiscovererFor(response.getContentType());
+    }
 
-	protected LinkDiscoverer getDiscovererFor(MockHttpServletResponse response) {
-		return links.getLinkDiscovererFor(response.getContentType());
-	}
+    private class LinkWithRelMatcher implements ResultMatcher {
 
-	private class LinkWithRelMatcher implements ResultMatcher {
+        private final String rel;
+        private final boolean present;
 
-		private final String rel;
-		private final boolean present;
+        LinkWithRelMatcher(String rel, boolean present) {
+            this.rel = rel;
+            this.present = present;
+        }
 
-		public LinkWithRelMatcher(String rel, boolean present) {
-			this.rel = rel;
-			this.present = present;
-		}
+        /*
+         * (non-Javadoc)
+         * @see org.springframework.test.web.servlet.ResultMatcher#match(org.springframework.test.web.servlet.MvcResult)
+         */
+        @Override
+        public void match(MvcResult result) throws Exception {
 
-		/* 
-		 * (non-Javadoc)
-		 * @see org.springframework.test.web.servlet.ResultMatcher#match(org.springframework.test.web.servlet.MvcResult)
-		 */
-		@Override
-		public void match(MvcResult result) throws Exception {
+            MockHttpServletResponse response = result.getResponse();
+            String content = response.getContentAsString();
+            LinkDiscoverer discoverer = links.getLinkDiscovererFor(response.getContentType());
 
-			MockHttpServletResponse response = result.getResponse();
-			String content = response.getContentAsString();
-			LinkDiscoverer discoverer = links.getLinkDiscovererFor(response.getContentType());
-
-			assertThat(discoverer.findLinkWithRel(rel, content), is(present ? notNullValue() : nullValue()));
-		}
-	}
+            assertThat(discoverer.findLinkWithRel(rel, content), is(present ? notNullValue() : nullValue()));
+        }
+    }
 }

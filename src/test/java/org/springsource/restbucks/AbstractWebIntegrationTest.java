@@ -84,10 +84,6 @@ public abstract class AbstractWebIntegrationTest {
             this.present = present;
         }
 
-        /*
-         * (non-Javadoc)
-         * @see org.springframework.test.web.servlet.ResultMatcher#match(org.springframework.test.web.servlet.MvcResult)
-         */
         @Override
         public void match(MvcResult result) throws Exception {
 

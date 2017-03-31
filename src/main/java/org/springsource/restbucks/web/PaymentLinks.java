@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Component;
-import org.springsource.restbucks.Restbucks;
 import org.springsource.restbucks.domain.Order;
 import org.springsource.restbucks.domain.Payment;
 import org.springsource.restbucks.domain.Payment.Receipt;

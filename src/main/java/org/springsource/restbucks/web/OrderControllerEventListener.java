@@ -10,10 +10,6 @@ import org.springsource.restbucks.domain.Order;
 @Component
 class OrderControllerEventListener extends AbstractRepositoryEventListener<Order> {
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.data.rest.repository.context.AbstractRepositoryEventListener#onBeforeDelete(java.lang.Object)
-     */
     @Override
     protected void onBeforeDelete(Order order) {
 

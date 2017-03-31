@@ -29,7 +29,6 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springsource.restbucks.AbstractWebIntegrationTest;
-import org.springsource.restbucks.Restbucks;
 import org.springsource.restbucks.domain.Order;
 
 import java.nio.file.Files;

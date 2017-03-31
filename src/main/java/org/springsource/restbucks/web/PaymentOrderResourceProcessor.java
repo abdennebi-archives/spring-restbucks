@@ -17,10 +17,6 @@ public class PaymentOrderResourceProcessor implements ResourceProcessor<Resource
     private final @NonNull
     PaymentLinks paymentLinks;
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.hateoas.ResourceProcessor#process(org.springframework.hateoas.ResourceSupport)
-     */
     @Override
     public Resource<Order> process(Resource<Order> resource) {
 

@@ -22,10 +22,6 @@ class CoreOrderResourceProcessor implements ResourceProcessor<Resource<Order>> {
     private final @NonNull
     EntityLinks entityLinks;
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.hateoas.ResourceProcessor#process(org.springframework.hateoas.ResourceSupport)
-     */
     @Override
     public Resource<Order> process(Resource<Order> resource) {
 

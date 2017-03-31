@@ -19,8 +19,8 @@ import static org.springsource.restbucks.config.HateoasConfig.CURIE_NAMESPACE;
 @RequiredArgsConstructor
 public class PaymentLinks {
 
-    public static final String PAYMENT_REL = CURIE_NAMESPACE + ":payment";
-    public static final String RECEIPT_REL = "receipt";
+    static final String PAYMENT_REL = CURIE_NAMESPACE + ":payment";
+    static final String RECEIPT_REL = "receipt";
     static final String PAYMENT = "/payment";
     static final String RECEIPT = "/receipt";
     private final @NonNull
@@ -31,16 +31,14 @@ public class PaymentLinks {
      *
      * @param order must not be {@literal null}.
      */
-    public Link getPaymentLink(Order order) {
+    Link getPaymentLink(Order order) {
         return entityLinks.linkForSingleResource(order).slash(PAYMENT).withRel(PAYMENT_REL);
     }
 
     /**
      * Returns the {@link Link} to the {@link Receipt} of the given {@link Order}.
-     *
-     * @param order
      */
-    public Link getReceiptLink(Order order) {
+    Link getReceiptLink(Order order) {
         return entityLinks.linkForSingleResource(order).slash(RECEIPT).withRel(RECEIPT_REL);
     }
 }

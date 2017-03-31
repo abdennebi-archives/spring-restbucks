@@ -4,6 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springsource.restbucks.domain.CreditCard;
 import org.springsource.restbucks.domain.CreditCardNumber;
 
+import javax.annotation.Nonnull;
 import java.util.Optional;
 
 /**
@@ -16,5 +17,5 @@ public interface CreditCardRepository extends CrudRepository<CreditCard, Long> {
      *
      * @param number must not be {@literal null}.
      */
-    Optional<CreditCard> findByNumber(CreditCardNumber number);
+    Optional<CreditCard> findByNumber(@Nonnull CreditCardNumber number);
 }

@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springsource.restbucks.web;
+package org.springsource.restbucks.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.javamoney.moneta.Money;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springsource.restbucks.config.JacksonTestUtils;
 import org.springsource.restbucks.core.Currencies;
 
 import javax.money.MonetaryAmount;

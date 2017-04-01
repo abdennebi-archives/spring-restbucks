@@ -1,0 +1,8 @@
+spring:
+    application:
+        name: cruncher
+    datasource:
+        driverClassName: org.h2.Driver
+        url: jdbc:h2:file:./restbucks
+server:
+    port: 8080

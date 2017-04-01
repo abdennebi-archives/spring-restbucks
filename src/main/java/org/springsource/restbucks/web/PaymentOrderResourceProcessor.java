@@ -6,6 +6,7 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
 import org.springframework.stereotype.Component;
 import org.springsource.restbucks.domain.Order;
+import org.springsource.restbucks.web.controller.PaymentController;
 
 /**
  * {@link ResourceProcessor} to enrich {@link Order} {@link Resource}s with links to the {@link PaymentController}.

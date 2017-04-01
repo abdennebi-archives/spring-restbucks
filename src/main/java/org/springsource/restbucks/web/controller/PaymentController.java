@@ -1,4 +1,4 @@
-package org.springsource.restbucks.web;
+package org.springsource.restbucks.web.controller;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -47,7 +47,7 @@ public class PaymentController {
      * @param number the {@link CreditCardNumber} unmarshaled from the request payload.
      * @return
      */
-    @RequestMapping(path = PaymentLinks.PAYMENT, method = PUT)
+    @RequestMapping(path = "/payment", method = PUT)
     ResponseEntity<?> submitPayment(@PathVariable("id") Order order, @RequestBody CreditCardNumber number) {
 
         if (order == null || order.isPaid()) {
@@ -65,7 +65,7 @@ public class PaymentController {
     /**
      * Shows the {@link Receipt} for the given order.
      */
-    @RequestMapping(path = PaymentLinks.RECEIPT, method = GET)
+    @RequestMapping(path = "/receipt", method = GET)
     HttpEntity<?> showReceipt(@PathVariable("id") Order order) {
 
         if (order == null || !order.isPaid() || order.isTaken()) {
@@ -80,7 +80,7 @@ public class PaymentController {
     /**
      * Takes the {@link Receipt} for the given {@link Order} and thus completes the process.
      */
-    @RequestMapping(path = PaymentLinks.RECEIPT, method = DELETE)
+    @RequestMapping(path = "/receipt", method = DELETE)
     HttpEntity<?> takeReceipt(@PathVariable("id") Order order) {
 
         if (order == null || !order.isPaid()) {
